@@ -36,6 +36,7 @@ public class WebViewBridgeManager extends ReactWebViewManager {
     @Override
     protected WebView createViewInstance(ThemedReactContext reactContext) {
         WebView root = super.createViewInstance(reactContext);
+        root.getSettings().setMediaPlaybackRequiresUserGesture(false);
         root.addJavascriptInterface(new JavascriptBridge(root), "WebViewBridge");
         return root;
     }
