@@ -69,6 +69,7 @@ public class WebViewBridgeManager extends ReactWebViewManager {
   private void injectBridgeScript(WebView root) {
     //this code needs to be called once per context
     if (!initializedBridge) {
+      root.getSettings().setMediaPlaybackRequiresUserGesture(false);
       root.addJavascriptInterface(new JavascriptBridge((ReactContext) root.getContext()), "WebViewBridgeAndroid");
       initializedBridge = true;
       root.reload();
