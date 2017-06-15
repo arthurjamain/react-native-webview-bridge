@@ -40,6 +40,7 @@ public class WebViewBridgeManager extends ReactWebViewManager {
         root.addJavascriptInterface(new JavascriptBridge(root), "WebViewBridge");
         return root;
     }
+<<<<<<< HEAD
 
     @Override
     public void receiveCommand(WebView root, int commandId, @Nullable ReadableArray args) {
@@ -70,6 +71,23 @@ public class WebViewBridgeManager extends ReactWebViewManager {
     @ReactProp(name = "allowFileAccessFromFileURLs")
     public void setAllowFileAccessFromFileURLs(WebView root, boolean allows) {
         root.getSettings().setAllowFileAccessFromFileURLs(allows);
+=======
+  }
+
+  private void sendToBridge(WebView root, String message) {
+    //root.loadUrl("javascript:(function() {\n" + script + ";\n})();");
+    String script = "WebViewBridge.onMessage('" + message + "');";
+    WebViewBridgeManager.evaluateJavascript(root, script);
+  }
+
+  private void injectBridgeScript(WebView root) {
+    //this code needs to be called once per context
+    if (!initializedBridge) {
+      root.getSettings().setMediaPlaybackRequiresUserGesture(false);
+      root.addJavascriptInterface(new JavascriptBridge((ReactContext) root.getContext()), "WebViewBridgeAndroid");
+      initializedBridge = true;
+      root.reload();
+>>>>>>> 57fcb6408bbe827af63b42cf05afdd804624615c
     }
 
     @ReactProp(name = "allowUniversalAccessFromFileURLs")
